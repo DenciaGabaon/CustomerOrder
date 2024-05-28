@@ -42,7 +42,7 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
         <div class="left_rect">
             <div class="top_rect">
                 <div class="rect_1">
-                    <p id="tp_1">Total Accounts</p>
+                    <p id="tp_1">Total Orders</p>
                     <p id="tp_2">P100</p>
                 </div>
                 <div class="rect_2">
@@ -141,42 +141,60 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
 
         // Get data from PHP for line chart
         const orderLabels = <?php echo $order_labels_json; ?>;
+        const orderLabels1 = <?php echo $order1_labels_json; ?>;
         const orderCounts = <?php echo $order_counts_json; ?>;
+        const totalSales = <?php echo $total_sales_json; ?>;
+        const totalRevenue = <?php echo $total_revenue_json; ?>;
+        const totalProfit = <?php echo $total_profit_json; ?>;
 
         // Create the line chart
         const ctxLine = document.getElementById('lineChart').getContext('2d');
-        const lineChart = new Chart(ctxLine, {
-            type: 'line',
-            data: {
-                labels: orderLabels,
-                datasets: [{
-                    label: 'Orders over Time',
-                    data: orderCounts,
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
+            const lineChart = new Chart(ctxLine, {
+                type: 'line',
+                data: {
+                    labels: orderLabels, // Ensure orderLabels is defined elsewhere in your script
+                    datasets: [
+                        {
+                            label: 'Total Sales',
+                            data: totalSales, // Ensure totalSales is defined elsewhere in your script
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        },
+                        {
+                            label: 'Total Revenue',
+                            data: totalRevenue, // Ensure totalRevenue is defined elsewhere in your script
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                        },
+                        {
+                            label: 'Total Profit',
+                            data: totalProfit, // Ensure totalProfit is defined elsewhere in your script
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            enabled: true
+                        }
                     },
-                    tooltip: {
-                        enabled: true
+                    scales: {
+                        x: {
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 },
-                scales: {
-                    x: {
-                        beginAtZero: true
-                    },
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            },
-        });
+            });
+
 
         // Get data from PHP for bar chart (same as line chart data in this example)
         const ctxBar = document.getElementById('barChart').getContext('2d');
