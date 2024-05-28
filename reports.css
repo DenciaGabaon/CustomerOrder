@@ -1,0 +1,250 @@
+body{
+    background-color: #010102;
+    margin: 0;
+    overflow: hidden;
+
+}
+
+.header1{
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: white;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    overflow: hidden;
+    background-color: #20202F;
+    padding-left: 50px;
+}
+
+.header{
+    background-color: transparent;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+}
+
+.logo{
+    background-color: transparent;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.logo img{
+    width: 100px;
+    height: 60px;
+
+}
+
+.nav ul{
+    list-style-type: none;
+    overflow: hidden;
+    padding: 0;
+    display: inline-block;
+}
+
+.nav a{
+    display: block;
+    text-decoration: none;
+    font-family: Paytone One, sans-serif;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    display: flex;
+    background-color: transparent;
+    padding-right: 40px;
+    align-items: center;}
+
+.nav li{
+    float: left;
+}
+
+.nav{
+    padding-left: 60px;
+}
+
+
+.nav a:hover{
+    color: #6E47DE;
+}
+
+.header_img{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 35%;
+    height: 100%;
+    left: 1050px;
+    bottom: -20px;
+
+}
+
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: Paytone One, sans-serif;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: white;
+    background-color: #6E47DE;
+    border: none;
+    border-radius: 15px;
+    margin-left: 400px;
+    /* box-shadow: 0 9px #999; */
+}
+
+.button:hover {
+    background-color: red;
+}
+
+.button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+
+#first{
+    width: 500px;
+    height: 70px;
+    position: absolute;
+    left: 10px;
+}
+
+#second{
+    width: 400px;
+    height: 70px;
+    position: absolute;
+    top: 30px;
+    left: 120px
+}
+
+.content{
+    width: 100%;
+    height: 350px;
+    justify-content: center;
+    display: flex;
+}
+
+
+.tablecon{
+    color: white;
+    background-color: transparent;
+    border-radius: 40px;
+    width: 70%;
+    height: 350px;
+    border: 5px solid #131213;
+    padding: 0;
+    justify-content: center;
+    overflow-y: auto;
+    display: flex;
+    position: absolute;
+}
+
+table {
+    width: 80%;
+    margin: 20px;
+    border-collapse: separate;
+    border-spacing: 10px;
+    font-family: Poppins, sans-serif;
+    position: absolute;
+}
+
+
+th, td {
+    border: none;
+    border-radius: 20px;
+    padding: 8px;
+    text-align: center;
+    color: white;
+    background-color: #20202F;
+}
+
+th {
+    background-color: #20202F;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: #20202F;
+    text-align: center;
+}
+
+
+
+
+
+.fills{
+    padding-left: 150px;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Style for the dropdowns */
+select {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 50px;
+    width: 150px; /* Set the width as needed */
+    background-color: #6E47DE;
+    color: white;
+    font-family: poppins, sans-serif;
+    font-weight: bold;
+    margin-right: 10px;
+
+}
+
+/* Style for the submit button */
+button {
+    padding: 8px 20px;
+    font-size: 16px;
+    background-color: #8CE9B3;
+    color: #1E1E1E;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: poppins, sans-serif;
+    font-weight: bold;
+    width: 150px; /* Set the width as needed */
+}
+
+/* Style for the submit button on hover */
+button:hover {
+    background-color: #8A7AA2;
+    color: white;
+}
+
+footer {
+    background-color: #20202F; /* Footer background color */
+    color: white; /* Text color */
+    text-align: right; /* Center-align text */
+    position: fixed; /* Fixed positioning */
+    bottom: 0; /* Stick to the bottom of the viewport */
+    width: 100%; /* Full width */
+    font-size: smaller;
+}

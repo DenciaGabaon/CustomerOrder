@@ -1,0 +1,112 @@
+body{
+    margin: 0;
+    background-color: #341A64;
+}
+
+.login_page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login_box{
+    background-color: #010102;
+    width: 40%;
+    height: 100vh;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.login{
+    background-color: #010102;
+    width: 80%;
+    height: 80%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.login form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+    background-color: #010102;
+    height: 220px;
+    margin-bottom: 20px;
+    padding: 0%;
+    margin-top: 0%;
+}
+
+.logo_half{
+    background-color: #010102;
+    height: 95px;
+    width: 100%;
+    position: relative;
+    top: -100px;
+
+}
+
+
+#input{
+    width: 300px;
+    height: 52px;
+    margin-bottom: 20px;
+    background-color: #20202F;
+    border-radius: 20px;
+    position: relative;
+    top: -75px;
+    padding-left: 20px; 
+    color: white;
+    font-size: 16px;
+    font-family: poppins, sans-serif;
+
+}
+
+.login form button {
+    font-size: 16px;
+    border-radius: 20px;
+    width: 325px; /* Set the width as needed */
+    height: 55px;
+    background-color: transparent;
+    border-color: #44219A;
+    color: #44219A;
+    font-family: Paytone One, sans-serif;
+    font-weight: bold;
+    position: relative;
+    top: -75px;
+}
+
+
+.bg_image{
+    background-color: #341A64;
+    height: 100vh;
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.bg_image img {
+    /* Add styling for the thumbnail image */
+    max-width: 100%; /* Ensure the image doesn't exceed the container width */
+    height: 90%;
+    width: 900px;
+}
+
+footer {
+    background-color: #20202F; /* Footer background color */
+    color: white; /* Text color */
+    text-align: center; /* Center-align text */
+    position: fixed; /* Fixed positioning */
+    bottom: 0; /* Stick to the bottom of the viewport */
+    width: 100%; /* Full width */
+    height: 50px; /* Set the fixed height */
+}

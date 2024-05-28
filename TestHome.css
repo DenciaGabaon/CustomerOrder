@@ -1,0 +1,114 @@
+body {
+    margin: 0;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Make the body take the full viewport height */
+}
+
+.login_page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    width: 80vw;
+    background-color: #010102;
+}
+
+.login_box {
+    background-color: #131213;
+    width: 40%;
+    height: 60vh;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.login {
+    background-color: #131213;
+    width: 80%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.login form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.logo {
+    background-color: #131213;
+    height: 150px; /* Adjusted height to fit within the login box */
+    padding: 0%;
+    margin-top: 0%;
+}
+
+
+
+#input{
+    width: 300px;
+    height: 52px;
+    margin-bottom: 15px;
+    background-color: #20202F;
+    border-radius: 20px;
+    padding-left: 20px; 
+    color: white;
+    font-size: 16px;
+    font-family: poppins, sans-serif;
+
+}
+
+.login form button {
+    font-size: 16px;
+    border-radius: 20px;
+    width: 325px; /* Set the width as needed */
+    height: 55px;
+    background-color: transparent;
+    border-color: #44219A;
+    color: #44219A;
+    font-family: Paytone One, sans-serif;
+    font-weight: bold;
+
+}
+
+.logo_half {
+    background-color: black;
+    height: 100px;
+    width: 100%;
+    position: relative;
+    top: -100px;
+}
+
+.bg_image {
+    background-color: #341A64;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.bg_image img {
+    max-width: 100%; /* Ensure the image doesn't exceed the container width */
+    height: 90%;
+    width: 900px;
+}
+
+footer {
+    background-color: #20202F; /* Footer background color */
+    color: white; /* Text color */
+    text-align: center; /* Center-align text */
+    position: fixed; /* Fixed positioning */
+    bottom: 0; /* Stick to the bottom of the viewport */
+    width: 100%; /* Full width */
+    height: 50px; /* Set the fixed height */
+}
