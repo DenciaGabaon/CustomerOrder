@@ -246,16 +246,17 @@ button:hover {
 .order_rect{
     background-color: transparent;
     width: 380px;
-    height: 340px;
+    height: 325px;
     margin-right: 20px;
     margin-left: 0;
-    padding: 0;
+    padding: 10px;
     color: white;
     font-family: poppins, sans-serif;
     font-size: 16px;
     font-weight: bold;
     border-radius: 40px;
     border: 5px solid #131213;
+    overflow-y: auto;
 }
 
 
@@ -346,6 +347,56 @@ button:hover {
     padding-left: 30px;
 }
 
+.order_list_label p{
+    margin-left: 20px;
+}
+
+.tablecon{
+    color: white;
+    background-color: transparent;
+    border-radius: 40px;
+    width: 100%;
+    padding: 0;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 10px;
+    font-family: Poppins, sans-serif;
+}
+
+
+
+td {
+    border: none;
+    border-radius: 20px;
+    padding: 5px;
+    text-align: center;
+    color: white;
+    background-color: #20202F;
+    font-size: 13px;
+}
+
+th {
+    border: none;
+    border-radius: 20px;
+    padding: 5px;
+    text-align: center;
+    color: white;
+    background-color: #20202F;
+    font-size: 14px;
+    
+}
+
+
+
+
+tr:nth-child(even) {
+    background-color: #20202F;
+    text-align: center;
+}
 
 
 

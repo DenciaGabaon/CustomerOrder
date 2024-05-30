@@ -1,5 +1,6 @@
 <?php
 include 'Dashboard_fetch.php'; // Include the file that fetches the data
+
 ?>
 
 <!DOCTYPE html>
@@ -41,23 +42,38 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
     <div class="content">
         <div class="left_rect">
             <div class="top_rect">
-                <div class="rect_1">
-                    <p id="tp_1">Total Orders</p>
-                    <p id="tp_2">P100</p>
-                </div>
-                <div class="rect_2">
-                    <p id="tp_1">Total Revenue</p>
-                    <p id="tp_2">P100</p>
-                </div>
-                <div class="rect_3">
-                    <p id="tp_1">Total Profit</p>
-                    <p id="tp_2">P100</p>
-                </div>
+            <div class="rect_1">
+                <p id="tp_1">Total Orders</p>
+                <p id="tp_2" id="total_accounts"><?php echo $total_sales_current_month; ?></p>
+            </div>
+            <div class="rect_2">
+                <p id="tp_1">Total Revenue</p>
+                <p id="tp_2" id="total_revenue">P <?php echo $total_revenue_current_month; ?></p>
+            </div>
+            <div class="rect_3">
+                <p id="tp_1">Total Profit</p>
+                <p id="tp_2" id="total_profit">P <?php echo $total_profit_current_month; ?></p>
+            </div>
+
             </div>
 
             <div class="bottom_rect">
                 <div class="order_rect">
-                    <p>Order List</p>
+                    <div class="order_list_label">
+                        <p>Order List</p>
+                    </div>
+                    <table id="dataTable" class="tablecon">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer ID</th>
+                                    <th>Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Order data will be populated dynamically here -->
+                            </tbody>
+                    </table>
                 </div>
                   
                 <div class="chart1">
@@ -91,6 +107,7 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
         <p>&copy; 2024 Your Website. All rights reserved.</p>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
         // Get data from PHP
         const labels = <?php echo $labels_json; ?>;
@@ -231,6 +248,28 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
             },
         });
 
+
+        $(document).ready(function() {
+            var orderList = <?php echo $order_list; ?>;
+            console.log(orderList);
+            if (orderList.length > 0) {
+                $.each(orderList, function(index, order) {
+                    $('#dataTable tbody').append(
+                        '<tr>' +
+                        '<td>' + order.OrderID + '</td>' +
+                        '<td>' + order.CustomerID + '</td>' +
+                        '<td>' + order.TotalAmount + '</td>' +
+                        '</tr>'
+                    );
+                });
+                $('#dataTable').DataTable(); // Initialize DataTable
+            } else {
+                $('#dataTable tbody').append('<tr><td colspan="3">No orders found for the current month</td></tr>');
+            }
+        });
+
+ 
+    
     </script>
 </body>
 </html>
