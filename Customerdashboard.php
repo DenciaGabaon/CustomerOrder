@@ -1,5 +1,6 @@
 <?php
-include 'Dashboard_fetch.php'; // Include the file that fetches the data
+
+include 'CustomerDash.php'; // Include the file that fetches the data
 
 ?>
 
@@ -9,7 +10,7 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
     <title>Customer Order</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="Dashboard.css">
+    <link rel="stylesheet" type="text/css" href="Customerdashboard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Paytone+One&family=Pixelify+Sans:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -24,8 +25,6 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
             </div>
             <nav class="nav">
                 <ul>
-                    <li><a href="CustomerOrder.php">Forms</a></li>
-                    <li><a href="reports.php">Report</a></li>
                     <li><a href="Dashboard.php">Dashboard</a></li>
                 </ul>
             </nav>
@@ -40,33 +39,55 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
     </div>
 
     <div class="content">
-        <div class="left_rect">
-            <div class="top_rect">
-            <div class="rect_1">
-                <p id="tp_1">Total Orders</p>
-                <p id="tp_2" id="total_accounts"><?php echo $total_sales_current_month; ?></p>
+        <div class = "welcome"> 
+            <p style="padding-right: 10px;"> Welcome Customer,</p>
+            <p id="welcome_name"></p>
+            <p>!</p>
+        </div>
+        <div class = "dashbcontent">
+            <div class = "box1">
+                <div class = "customer_info">
+                    <p id="customerID">Customer ID:</p>
+                    <p id="customerName">Customer Name:</p>
+                    <p id="customerEmail">Email:</p>
+                </div>
+                <div class="chart1">
+                    <div class="chart1-label">
+                        <p>Order Summary Per Category</p>
+                    </div>
+                    <div class="chart1-data">
+                        <canvas id="Chart1"></canvas>
+                    </div>
+                </div>
             </div>
-            <div class="rect_2">
-                <p id="tp_1">Total Revenue</p>
-                <p id="tp_2" id="total_revenue">P <?php echo $total_revenue_current_month; ?></p>
+            <div class = "box2">
+                <div class="chart2">
+                    <div class="chart2-label">
+                        <p>Total Purchase Per Month</p>
+                    </div>
+                    <div class="chart2-data">
+                        <canvas id="Chart2"  width="80" height="20"></canvas>
+                    </div>
+                </div>
+                <div class="chart3">
+                    <div class="chart3-label">
+                        <p>Total Orders Per Month</p>
+                    </div>
+                    <div class="chart3-data">
+                        <canvas id="Chart3"  width="80" height="20" ></canvas>
+                    </div>
+                </div>
             </div>
-            <div class="rect_3">
-                <p id="tp_1">Total Profit</p>
-                <p id="tp_2" id="total_profit">P <?php echo $total_profit_current_month; ?></p>
-            </div>
-
-            </div>
-
-            <div class="bottom_rect">
-                <div class="order_rect">
-                    <div class="order_list_label">
-                        <p>Order List - <span id="currentMonth"></span></p>
+            <div class = "box3">
+                <div class="chart4">
+                    <div class="chart4-label">
+                        <p>Detailed Order list</p>
                     </div>
                     <table id="dataTable" class="tablecon">
                             <thead>
                                 <tr>
                                     <th>Order ID</th>
-                                    <th>Customer ID</th>
+                                    <th>OrderDate</th>
                                     <th>Total Amount</th>
                                 </tr>
                             </thead>
@@ -75,32 +96,8 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
                             </tbody>
                     </table>
                 </div>
-                  
-                <div class="chart1">
-                    <div class="chart1-label">
-                        <p>Product Summary Per Category</p>
-                    </div>
-                    <div class="chart1-data">
-                        <canvas id="Chart1"></canvas>
-                    </div>
-                </div>
             </div>
         </div>
-    
-        <div class="right_rect">
-            <div class="line_graph">
-                <div class = "line_graph_label">
-                    <p>Summary of Sales</p>
-                </div>
-                    <canvas id="lineChart" width="60" height="18"></canvas>
-            </div>
-            <div class="bar_graph">
-                    <div class="bar_graph_label">
-                        <p>Summary of Orders</p>
-                    </div>
-                    <canvas id="barChart" width="60" height="18"></canvas>
-            </div>
-        </div>    
     </div>
 
     <footer>
@@ -109,6 +106,7 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
+        
         // Get data from PHP
         const labels = <?php echo $labels_json; ?>;
         const counts = <?php echo $counts_json; ?>;
@@ -156,39 +154,28 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
             },
         });
 
-        // Get data from PHP for line chart
-        const orderLabels = <?php echo $order_labels_json; ?>;
-        const orderLabels1 = <?php echo $order1_labels_json; ?>;
-        const orderCounts = <?php echo $order_counts_json; ?>;
-        const totalSales = <?php echo $total_sales_json; ?>;
-        const totalRevenue = <?php echo $total_revenue_json; ?>;
-        const totalProfit = <?php echo $total_profit_json; ?>;
+         // Get data from PHP for line chart
+        var totalPurchaseMonth = <?php echo json_encode($total_purchase_month); ?>;
+        var totalPurchase = <?php echo json_encode($total_purchase); ?>;
 
-        // Create the line chart
-        const ctxLine = document.getElementById('lineChart').getContext('2d');
+        
+
+
+
+         //line chart
+         const ctxLine = document.getElementById('Chart2').getContext('2d');
             const lineChart = new Chart(ctxLine, {
                 type: 'line',
                 data: {
-                    labels: orderLabels, // Ensure orderLabels is defined elsewhere in your script
+                    labels: totalPurchaseMonth, // Ensure orderLabels is defined elsewhere in your script
                     datasets: [
                         {
-                            label: 'Total Sales',
-                            data: totalSales, // Ensure totalSales is defined elsewhere in your script
+                            label: 'Total Prchase',
+                            data: totalPurchase,
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
                         },
-                        {
-                            label: 'Total Revenue',
-                            data: totalRevenue, // Ensure totalRevenue is defined elsewhere in your script
-                            borderColor: 'rgba(153, 102, 255, 1)',
-                            backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                        },
-                        {
-                            label: 'Total Profit',
-                            data: totalProfit, // Ensure totalProfit is defined elsewhere in your script
-                            borderColor: 'rgba(255, 159, 64, 1)',
-                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
-                        }
+                        
                     ]
                 },
                 options: {
@@ -213,8 +200,12 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
             });
 
 
+        var orderLabels = <?php echo json_encode($order_labels); ?>;
+        var orderCounts = <?php echo json_encode($total_orders); ?>;
+
+
         // Get data from PHP for bar chart (same as line chart data in this example)
-        const ctxBar = document.getElementById('barChart').getContext('2d');
+        const ctxBar = document.getElementById('Chart3').getContext('2d');
         const barChart = new Chart(ctxBar, {
             type: 'bar',
             data: {
@@ -248,25 +239,16 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
             },
         });
 
-
         $(document).ready(function() {
-            var now = new Date();
-            var month = now.toLocaleString('default', { month: 'long' }); // Full month name
-            var year = now.getFullYear();
-            var currentMonth = month + " " + year;
-
-            // Display the current month in the HTML
-            $('#currentMonth').text(currentMonth);
-
             var orderList = <?php echo $order_list; ?>;
             console.log(orderList);
             if (orderList.length > 0) {
-                $.each(orderList, function(index, order) {
+                $.each(orderList, function(index, orders) {
                     $('#dataTable tbody').append(
                         '<tr>' +
-                        '<td>' + order.OrderID + '</td>' +
-                        '<td>' + order.CustomerID + '</td>' +
-                        '<td>' + order.TotalAmount + '</td>' +
+                        '<td>' + orders.OrderID + '</td>' +
+                        '<td>' + orders.OrderDate + '</td>' +
+                        '<td>' + orders.TotalAmount + '</td>' +
                         '</tr>'
                     );
                 });
@@ -276,8 +258,20 @@ include 'Dashboard_fetch.php'; // Include the file that fetches the data
             }
         });
 
- 
-    
+       
+
+        var customerInfo = <?php echo json_encode($customer_info); ?>;
+
+        $(document).ready(function() {
+            $('#welcome_name').text(customerInfo.CustomerFirstName);
+            $('#customerID').text('Customer ID: ' + customerInfo.CustomerID);
+            $('#customerName').text('Customer Name: ' + customerInfo.CustomerName);
+            $('#customerEmail').text('Email: ' + customerInfo.Email);
+        });
+
+
     </script>
+
+     
 </body>
 </html>

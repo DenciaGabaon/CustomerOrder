@@ -24,10 +24,14 @@ include 'db.php';
                     <div class="logo_half"></div>
                 </div>
                 <form  method="POST" action= "login.php">
-                    <input class = "input1" type="text" id="input" name="user" placeholder="Username" required>
+                    <input class = "input1" type="text" id="input" name="user" placeholder="Email" required>
                     <input type="password" id="input" name="pass" placeholder="Password" required>
                     <button type="submit" name="login">Login</button>
                 </form>
+                <div class= "Signup">
+                    <p id = newacc>Don't have an account? <a href="signup.php" id = "signup">Sign Up</a></p>
+                    
+                </div>
             </div>
         </div>
         <div class="bg_image">

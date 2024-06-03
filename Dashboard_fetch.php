@@ -1,8 +1,12 @@
 <?php 
 include 'db.php'; // Include your database connection file
 
-// Query to get the number of products per category
-$sql = "SELECT CategoryID, COUNT(*) AS ProductCount FROM product GROUP BY CategoryID";
+// Query to get the number of products per category with category names
+$sql = "SELECT c.CategoryName, COUNT(p.ProductID) AS ProductCount
+        FROM product p
+        JOIN category c ON p.CategoryID = c.CategoryID
+        GROUP BY c.CategoryName";
+
 $result = $conn->query($sql);
 
 if (!$result) {
@@ -14,15 +18,20 @@ $counts = [];
 
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
-        $labels[] = "Category " . $row['CategoryID'];
+        $labels[] = $row['CategoryName'];
         $counts[] = $row['ProductCount'];
     }
 } else {
     echo "0 results";
 }
 
+
+
+
+
+
 // Query to get the summary of orders over time (example: by month)
-$sql_orders = "SELECT DATE_FORMAT(OrderDate, '%Y-%m') AS order_month, COUNT(*) AS order_count FROM `order` GROUP BY order_month";
+$sql_orders = "SELECT DATE_FORMAT(OrderDate, '%Y-%m') AS order_month, COUNT(*) AS order_count FROM `orders` GROUP BY order_month";
 $result_orders = $conn->query($sql_orders);
 
 if (!$result_orders) {
@@ -55,7 +64,7 @@ if ($result_orders->num_rows > 0) {
 $sql_orders = "SELECT DATE_FORMAT(OrderDate, '%Y-%m') AS order_month, 
                       COUNT(OrderID) AS total_accounts,
                       SUM(TotalAmount) AS total_revenue
-               FROM `order` 
+               FROM `orders` 
                GROUP BY order_month";
 $result_orders = $conn->query($sql_orders);
 
@@ -84,7 +93,7 @@ if ($result_orders->num_rows > 0) {
 $sql_current_month = "SELECT 
                       COUNT(OrderID) AS total_accounts,
                       SUM(TotalAmount) AS total_revenue
-               FROM `order` 
+               FROM `orders` 
                WHERE YEAR(OrderDate) = YEAR(CURRENT_DATE()) AND MONTH(OrderDate) = MONTH(CURRENT_DATE())";
 
 $result_current_month = $conn->query($sql_current_month);
@@ -108,7 +117,7 @@ if ($result_current_month->num_rows > 0) {
 
 
 // Query to get the summary of orders for the current month
-$sql_current_month_orders = "SELECT OrderID, CustomerID, TotalAmount FROM `order` WHERE YEAR(OrderDate) = YEAR(CURRENT_DATE()) AND MONTH(OrderDate) = MONTH(CURRENT_DATE())";
+$sql_current_month_orders = "SELECT OrderID, CustomerID, TotalAmount FROM `orders` WHERE YEAR(OrderDate) = YEAR(CURRENT_DATE()) AND MONTH(OrderDate) = MONTH(CURRENT_DATE())";
 $result_current_month_orders = $conn->query($sql_current_month_orders);
 
 if (!$result_current_month_orders) {
@@ -122,7 +131,6 @@ if ($result_current_month_orders->num_rows > 0) {
         $current_month_orders[] = $row_current_month_orders;
     }
 } else {
-    echo json_encode(['error' => 'No orders found for the current month']);
 }
 
 

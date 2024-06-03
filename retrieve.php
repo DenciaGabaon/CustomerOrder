@@ -15,7 +15,7 @@ if ($dropdown1 == 'category') {
 } else {
     // If dropdown1 is not 'category', handle it accordingly (for example, retrieving customer-related data)
     $query = "SELECT c.CustomerID, o.OrderID, o.TotalAmount, o.OrderDate 
-          FROM `order` o
+          FROM `orders` o
           INNER JOIN customer c ON o.CustomerID = c.CustomerID 
           WHERE o.CustomerID = ?";
     $headers = array("CustomerID", "OrderID", "TotalAmount", "OrderDate");
