@@ -14,6 +14,7 @@ include 'AddFormretrieve.php';
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Paytone+One&family=Pixelify+Sans:wght@400..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
         <div class="header">
@@ -50,7 +51,7 @@ include 'AddFormretrieve.php';
                         <option value="delete">Delete Order</option>
                     </select>
 
-                    <form id="mainFormoo" action="AddFormretrieve.php" method="post">
+                    <form id="mainFormoo"  method="post">
                         <div class="aa">
                             <div class="bb">
                                 <input type="hidden" id="dropdownValueo" name="dropdownValueo">
@@ -111,22 +112,6 @@ include 'AddFormretrieve.php';
                     </form>
 
 
-                <!-- <form id="delformoo" action="" method="post">
-                    <div class= "deloo"> 
-                    <input type="hidden" id="dropdownValueod" name="dropdownValueod">
-                    <select id="idoo" name="idoo" onchange="loadOrderDetails(this.value)"required>
-                        <option value="" selected>ID</option>
-                        
-                    </select>
-                    <input type="text" id="input1ood" name="input1ood" placeholder="CustomerID" required>
-                    </div>
-                    <input type="text" id="input2ood" name="input2ood" placeholder="Date" required>
-                    <input type="text" id="input3ood" name="input3ood" placeholder="Total" required>
-                    <div class = "submit">
-                        <button type="submit">Submit</button>
-                    </div>
-
-                    </form> -->
                 </div>
                 <div class = "receipt_base">
                     <div class = "receipt">
@@ -150,6 +135,7 @@ include 'AddFormretrieve.php';
         <p>&copy; 2024 Your Website. All rights reserved.</p>
     </footer>
     <script>
+
        
        function setCurrentDate(inputId) {
             var input = document.getElementById(inputId);
@@ -160,13 +146,53 @@ include 'AddFormretrieve.php';
 
 
 
-        // Attach an event listener to the select element
-        document.getElementById('input2oo').addEventListener('change', function() {
-            // Get the selected product ID
-            var selectedProductId = this.value;
-            // Retrieve and display the corresponding product name
-            document.getElementById('input3oo').value = selectedProductId;
+        
 
+        // var total = 0; // Variable to keep track of the total
+        // var productList = []; // Array to store product details
+
+        // function displayFormData() {
+        //     var customerID = document.getElementById('customerid').value;
+        //     var Dates = document.getElementById('input1oo').value;
+
+        //     var content_header = "CustomerID: " + customerID + "<br>";
+        //     content_header += "Date: " + Dates + "<br>";
+        //     document.getElementById('receipt_header').innerHTML = content_header;
+
+        //     var productID = document.getElementById('input3oo').value;
+        //     var productDetails = getProductById(productID);
+
+        //     var price = parseFloat(productDetails.price);
+        //     total += price;
+
+        //     productList.push({
+        //         id: productID,
+        //         name: productDetails.name,
+        //         price: price
+        //     });
+
+        //     console.log(productList);
+        //     var content_body = '<div class="product-details">';
+        //     content_body += '<span class="product-id">' + productID + '</span>';
+        //     content_body += '<span class="product-name">' + productDetails.name + '</span>';
+        //     content_body += '<span class="product-price">' + price.toFixed(2) + '</span>';
+        //     content_body += '</div>';
+        //     document.getElementById('receipt_body').innerHTML += content_body; // Append the new product to the receipt body
+
+        //     var content_footer = "Total: " + total.toFixed(2);
+        //     document.getElementById('receipt_footer').innerHTML = content_footer;
+
+        //     // Update the input4oo with the total
+        //     document.getElementById('input4oo').value = total.toFixed(2);
+
+        //     // Reset the product dropdown to its default option and clear the product ID input
+        //     document.getElementById('input2oo').value = "";
+        //     document.getElementById('input3oo').value = "";
+        // }
+
+        document.getElementById('input2oo').addEventListener('change', function () {
+            var selectedProductId = this.value;
+            document.getElementById('input3oo').value = selectedProductId;
         });
 
         var total = 0; // Variable to keep track of the total
@@ -175,27 +201,35 @@ include 'AddFormretrieve.php';
         function displayFormData() {
             var customerID = document.getElementById('customerid').value;
             var Dates = document.getElementById('input1oo').value;
+            var productID = document.getElementById('input2oo').value;
+            var productName = document.querySelector('#input2oo option:checked').textContent;
+            var price = parseFloat(document.querySelector('#input2oo option:checked').dataset.price);
+
+            total += price; // Add the price to the total
+            document.getElementById('input4oo').value = total.toFixed(2); // Update the total field
+
+            productList.push({
+                id: productID,
+                name: productName,
+                price: price
+            }); // Add product details to the array
+
+            var formData = {
+                customerid: customerID,
+                Date: Dates,
+                price: price,
+                product_data: JSON.stringify(productList)
+            };
+
+            console.log(formData);
 
             var content_header = "CustomerID: " + customerID + "<br>";
             content_header += "Date: " + Dates + "<br>";
             document.getElementById('receipt_header').innerHTML = content_header;
 
-            var productID = document.getElementById('input3oo').value;
-            var productDetails = getProductById(productID);
-
-            var price = parseFloat(productDetails.price);
-            total += price;
-
-            productList.push({
-                id: productID,
-                name: productDetails.name,
-                price: price
-            });
-
-            console.log(productList);
             var content_body = '<div class="product-details">';
             content_body += '<span class="product-id">' + productID + '</span>';
-            content_body += '<span class="product-name">' + productDetails.name + '</span>';
+            content_body += '<span class="product-name">' + productName + '</span>';
             content_body += '<span class="product-price">' + price.toFixed(2) + '</span>';
             content_body += '</div>';
             document.getElementById('receipt_body').innerHTML += content_body; // Append the new product to the receipt body
@@ -203,229 +237,57 @@ include 'AddFormretrieve.php';
             var content_footer = "Total: " + total.toFixed(2);
             document.getElementById('receipt_footer').innerHTML = content_footer;
 
-            // Update the input4oo with the total
-            document.getElementById('input4oo').value = total.toFixed(2);
-
             // Reset the product dropdown to its default option and clear the product ID input
             document.getElementById('input2oo').value = "";
             document.getElementById('input3oo').value = "";
+
+            document.getElementById('product_data').value = JSON.stringify(productList); // Store product details as JSON string
         }
 
-        function getProductById(productId) {
-            var selectedOption = document.querySelector('#input2oo option[value="' + productId + '"]');
-            if (selectedOption) {
-                return {
-                    name: selectedOption.textContent,
-                    price: selectedOption.getAttribute('data-price')
-                };
-            } else {
-                return {
-                    name: "",
-                    price: "0"
-                };
-            }
-        }
+        // document.getElementById('mainFormoo').addEventListener('submit', function(event) {
+        //     var productDataField = document.getElementById('product_data');
+        //     var totalAmountField = document.getElementById('total_amount');
+            
+            
+        //     // Serialize the product list to JSON
+        //     productDataField.value = JSON.stringify(productList);
+        //     totalAmountField.value = total.toFixed(2);
+        // });
 
-        document.getElementById('mainFormoo').addEventListener('submit', function(event) {
-            var productDataField = document.getElementById('product_data');
-            var totalAmountField = document.getElementById('total_amount');
-            
-            
-            // Serialize the product list to JSON
-            productDataField.value = JSON.stringify(productList);
-            totalAmountField.value = total.toFixed(2);
+        
+        $(document).ready(function () {
+            $("#mainFormoo").submit(function (event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                var formData = $(this).serialize(); // Serialize the form data
+
+                $.ajax({
+                    type: "POST",
+                    url: "AddFormretrieve.php",
+                    data: formData,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success) {
+                            console.log("Form submitted successfully.");
+                            console.log("Order ID:", response.orderID);
+                        } else {
+                            console.error("Form submission failed.");
+                            console.error("Error message:", response.error);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX request failed.");
+                        console.error("Status:", status);
+                        console.error("Error:", error);
+                    }
+                });
+            });
         });
 
 
 
 
 
-
-
-
-
-        // document.getElementById("delform").addEventListener("submit", function(event) {
-        //     event.preventDefault(); // Prevent the form from submitting normally
-
-        //     // Get form data
-        //     var formData = new FormData(this);
-
-        //     // Send form data to the server using AJAX
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.open("POST", "addelcc.php", true);
-        //     xhr.onreadystatechange = function() {
-        //         if (xhr.readyState === XMLHttpRequest.DONE) {
-        //             if (xhr.status === 200) {
-        //                 // Handle the response here
-        //                 alert('Record deleted from customer table');
-        //             } else {
-        //                 // Handle errors if any
-        //                 alert('Error: ' + xhr.responseText);
-        //             }
-        //         }
-        //     };
-        //     xhr.send(formData); // Send form data
-        // });
-
-
-        // document.getElementById("mainFormoo").addEventListener("submit", function(event) {
-        //     event.preventDefault(); // Prevent the form from submitting normally
-
-        //     // Get form data
-        //     var formData = new FormData(this);
-
-        //     // Send form data to the server using AJAX
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.open("POST", "addeloo.php", true);
-        //     xhr.onreadystatechange = function() {
-        //         if (xhr.readyState === XMLHttpRequest.DONE) {
-        //             if (xhr.status === 200) {
-        //                 // Handle the response here
-        //                 alert('Record Added to order table');
-        //             } else {
-        //                 // Handle errors if any
-        //                 alert('Error: ' + xhr.responseText);
-        //             }
-        //         }
-        //     };
-        //     xhr.send(formData); // Send form data
-        // });
-
-
-        // document.getElementById("delformoo").addEventListener("submit", function(event) {
-        //     event.preventDefault(); // Prevent the form from submitting normally
-
-        //     // Get form data
-        //     var formData = new FormData(this);
-
-        //     // Send form data to the server using AJAX
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.open("POST", "addeloo.php", true);
-        //     xhr.onreadystatechange = function() {
-        //         if (xhr.readyState === XMLHttpRequest.DONE) {
-        //             if (xhr.status === 200) {
-        //                 // Handle the response here
-        //                 alert('Record deleted from order table');
-        //             } else {
-        //                 // Handle errors if any
-        //                 alert('Error: ' + xhr.responseText);
-        //             }
-        //         }
-        //     };
-        //     xhr.send(formData); // Send form data
-        // });
-
-
-
-        // Get the dropdown element
-        // var dropdown = document.getElementById("dropdowncc");
-
-        // // Get the forms
-        // var addForm = document.getElementById("mainFormcc");
-        // var deleteForm = document.getElementById("delform");
-
-        // // Add event listener to the dropdown
-        // dropdown.addEventListener("change", function() {
-        //     // Check the selected value
-        //     if (dropdown.value === "add") {
-        //         // Show add form and hide delete form
-        //         addForm.style.display = "flex";
-        //         deleteForm.style.display = "none";
-        //     } else if (dropdown.value === "delete") {
-        //         // Show delete form and hide add form
-        //         addForm.style.display = "none";
-        //         deleteForm.style.display = "flex";
-        //     }
-        // });
-
-        // var dropdown1 = document.getElementById("dropdownoo");
-
-        // // Get the forms
-        // var addFormoo = document.getElementById("mainFormoo");
-        // var deleteFormoo = document.getElementById("delformoo");
-
-        // // Add event listener to the dropdown
-        // dropdown1.addEventListener("change", function() {
-        //     // Check the selected value
-        //     if (dropdown1.value === "add") {
-        //         // Show add form and hide delete form
-        //         addFormoo.style.display = "flex";
-        //         deleteFormoo.style.display = "none";
-        //     } else if (dropdown1.value === "delete") {
-        //         // Show delete form and hide add form
-        //         addFormoo.style.display = "none";
-        //         deleteFormoo.style.display = "flex";
-        //     }
-        // });
-        
-
-        // function loadCustomerDetails(customerId) {
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.open("GET", "inputretrievecc.php?customerId=" + customerId, true);
-        //     xhr.onreadystatechange = function() {
-        //         if (xhr.readyState == 4) {
-        //             if (xhr.status == 200) {
-        //                 var customer = JSON.parse(xhr.responseText);
-        //                 console.log(customer);
-        //                 if (customer) {
-        //                     document.getElementById("input1ccd").value = customer.FirstName;
-        //                     document.getElementById("input2ccd").value = customer.LastName;
-        //                     document.getElementById("input3ccd").value = customer.Email;
-        //                 } else {
-        //                     console.error("No customer data found");
-        //                 }
-        //             } else {
-        //                 console.error("Error fetching customer data: " + xhr.status);
-        //             }
-        //         }
-        //     };
-        //     xhr.send();
-        // }
-
-
-        // function loadOrderDetails(orderId) {
-        //     var xhr = new XMLHttpRequest();
-        //     xhr.open("GET", "orderretrieve.php?orderId=" + orderId, true);
-        //     xhr.onreadystatechange = function() {
-        //         if (xhr.readyState == 4) {
-        //             if (xhr.status == 200) {
-        //                 var order = JSON.parse(xhr.responseText);
-        //                 console.log(order);
-        //                 if (order) {
-        //                     document.getElementById("input1ood").value = order.CustomerID;
-        //                     document.getElementById("input2ood").value = order.OrderDate;
-        //                     document.getElementById("input3ood").value = order.TotalAmount;
-        //                 } else {
-        //                     console.error("No customer data found");
-        //                 }
-        //             } else {
-        //                 console.error("Error fetching customer data: " + xhr.status);
-        //             }
-        //         }
-        //     };
-        //     xhr.send();
-        // }
-
-
-        // console.log("Script loaded successfully."); // Add this line to check if script execution is happening
-        //     document.getElementById("dropdowncc").addEventListener("change", function() {
-        //         console.log("Selected value of dropdowncc:", this.value);
-        //         // Set the value of the hidden input field to the selected value of the dropdown
-        //         document.getElementById("dropdownValue").value = this.value;
-        //         document.getElementById("dropdownValuecd").value = this.value;
-        //         console.log("Value of dropdownValue:", document.getElementById("dropdownValue").value);
-        //     });
-
-
-        //     document.getElementById("dropdownoo").addEventListener("change", function() {
-        //         console.log("Selected value of dropdownoo:", this.value);
-        //         // Set the value of the hidden input field to the selected value of the dropdown
-        //         document.getElementById("dropdownValueo").value = this.value;
-        //         document.getElementById("dropdownValueod").value = this.value;
-        //         console.log("Value of dropdownValueo:", document.getElementById("dropdownValueo").value);
-        //     });
-
-           
         </script>
 
 </body>
