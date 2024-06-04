@@ -63,7 +63,6 @@ if ($result->num_rows > 0) {
         $counts[] = $row['ProductCount'];
     }
 } else {
-    echo "0 results";
 }
 
 
@@ -129,7 +128,6 @@ if ($result_orders) {
             $total_orders[] = $row_orders['total_orders'];
         }
     } else {
-        echo "0 results";
     }
 } else {
     die("Error executing query: " . $conn->error);

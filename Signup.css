@@ -125,6 +125,48 @@ body{
     font-weight: bold;
 }
 
+
+#centered-notification {
+    display: none;
+}
+
+.centered-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1f1f1f;
+    border: 1px solid #504d52;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000; /* Ensure it appears above other elements */
+    text-align: center;
+    width: 300px; /* Adjust the width as needed */
+    border-radius: 8px; /* Add rounded corners */
+}
+
+.notification-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.notification-content button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #8CE9B3;
+    color: #1f1f1f;
+    cursor: pointer;
+    border-radius: 21px;
+    font-family: Poppins, sans-serif;
+}
+
+.notification-content button:hover {
+    background-color: #8CE9B3;
+}
+
 footer {
     background-color: #20202F; 
     text-align: center;

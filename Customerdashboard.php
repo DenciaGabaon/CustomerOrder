@@ -47,9 +47,14 @@ include 'CustomerDash.php'; // Include the file that fetches the data
         <div class = "dashbcontent">
             <div class = "box1">
                 <div class = "customer_info">
-                    <p id="customerID">Customer ID:</p>
-                    <p id="customerName">Customer Name:</p>
-                    <p id="customerEmail">Email:</p>
+                    <div class ="cinfo">
+                        <p id="customerID">Customer ID:</p>
+                        <p id="customerName">Customer Name:</p>
+                        <p id="customerEmail">Email:</p>
+                    </div>
+                    <div class= "Edit">
+                        <button id = "Edit" class="buttonstart">Edit</button>
+                    </div>
                 </div>
                 <div class="chart1">
                     <div class="chart1-label">
@@ -100,12 +105,34 @@ include 'CustomerDash.php'; // Include the file that fetches the data
         </div>
     </div>
 
+    <div id="centered-notification" class="centered-notification">
+        <div class="notification-content">
+            <p id="notification-message"></p>
+            <button onclick="closeNotification()">Close</button>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2024 Your Website. All rights reserved.</p>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
+
+        function showNotification(message) {
+            var notification = document.getElementById('centered-notification');
+            var messageElement = document.getElementById('notification-message');
+            messageElement.textContent = message;
+            notification.style.display = 'block';
+        }
+
+        function closeNotification() {
+            var notification = document.getElementById('centered-notification');
+            notification.style.display = 'none';
+            if (window.EditForm) {
+                window.EditForm.remove();
+            }
+        }
         
         // Get data from PHP
         const labels = <?php echo $labels_json; ?>;
@@ -271,6 +298,7 @@ include 'CustomerDash.php'; // Include the file that fetches the data
 
 
     </script>
+    <script src="EditForm.js"></script>
 
      
 </body>

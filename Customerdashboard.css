@@ -135,7 +135,7 @@ body{
 
 
 /* Style for the submit button */
-button {
+/* button {
     padding: 8px 20px;
     font-size: 16px;
     background-color: #8CE9B3;
@@ -145,8 +145,8 @@ button {
     cursor: pointer;
     font-family: poppins, sans-serif;
     font-weight: bold;
-    width: 150px; /* Set the width as needed */
-}
+    width: 150px; 
+} */
 
 /* Style for the submit button on hover */
 button:hover {
@@ -233,15 +233,7 @@ button:hover {
     display: flex;
 }
 
-.customer_info{
-    background-color: #271E2E;
-    width: 90%;
-    margin-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
+
 
 .customer_info p{
     margin: 0;
@@ -402,6 +394,144 @@ th {
 tr:nth-child(even) {
     background-color: #20202F;
     text-align: center;
+}
+
+.buttonstart{
+    color: #6E47DE;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    display: flex;
+    align-items: end;
+}
+
+#Edit{
+    background-color: transparent;
+    border: none;
+}
+
+
+.EditForm{
+    background-color: #6E47DE;
+    width: 350px;
+    height: 300px;
+    position: absolute;
+    top: 200px;
+    left: 350px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.EditFormField{
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: auto;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.EditFormField input{
+    margin-bottom: 10px;
+    width: 95%;
+    border-radius: 30px;
+    height: 30px;
+    padding-left: 20px;
+}
+
+.buttonField{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    background-color: transparent;
+    width: 80%;
+    height: auto;
+}
+
+#submit{
+    border-radius: 30px;
+    background-color: #20202F;
+    margin-right: 60px;
+    width: 180px;
+    height: 30px;
+    color: white;
+    font-family: Paytone one, sans-serif;
+}
+
+
+#cancel{
+    border-radius: 30px;
+    background-color: #20202F;
+    width: 180px;
+    height: 30px;
+    color: white;
+    font-family: Paytone one, sans-serif;
+}
+
+
+
+
+.cinfo{
+    width: 95%;
+}
+
+
+.customer_info{
+    background-color: #271E2E;
+    width: 90%;
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+
+.centered-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #1f1f1f;
+    border: 1px solid #504d52;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000; /* Ensure it appears above other elements */
+    text-align: center;
+    width: 300px; /* Adjust the width as needed */
+    border-radius: 8px; /* Add rounded corners */
+    display: none;
+
+}
+
+.notification-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.notification-content button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #8CE9B3;
+    color: #1f1f1f;
+    cursor: pointer;
+    border-radius: 21px;
+    font-family: Poppins, sans-serif;
+}
+
+.notification-content button:hover {
+    background-color: #8CE9B3;
 }
 
 

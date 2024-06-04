@@ -43,6 +43,12 @@ include 'db.php';
                 <img src="asset\bg.svg" alt="bg">
         </div>
     </div>
+    <div id="centered-notification" class="centered-notification">
+        <div class="notification-content">
+            <p id="notification-message"></p>
+            <button onclick="closeNotification()">Close</button>
+        </div>
+    </div>
     
 </body>
 <footer>
@@ -50,6 +56,29 @@ include 'db.php';
 </footer>
 
 <script>
+
+        var registrationSuccessful = false;
+        
+        function showNotification(message) {
+            var notification = document.getElementById('centered-notification');
+            var messageElement = document.getElementById('notification-message');
+            messageElement.textContent = message;
+            notification.style.display = 'block';
+        
+            if (message === 'Registration successful') {
+                registrationSuccessful = true;
+            }
+        }
+        
+        function closeNotification() {
+            var notification = document.getElementById('centered-notification');
+            notification.style.display = 'none';
+        
+            if (registrationSuccessful) {
+                window.location.href = 'Home.php';
+            }
+        }
+
          // Prevent the default form submission behavior
          document.getElementById("mainFormcc").addEventListener("submit", function(event) {
             event.preventDefault(); // Prevent the form from submitting normally
@@ -64,10 +93,12 @@ include 'db.php';
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         if (xhr.responseText === "error") {
-                            alert('Error: Passwords do not match');
+                            showNotification('Error: Passwords do not match');
+                            //alert('Error: Passwords do not match');
                         } else {
-                            alert('Registration successful');
-                            window.location.href = 'Home.php';
+                            showNotification('Registration successful');
+                            //alert('Registration successful');
+                            // window.location.href = 'Home.php';
                         }
                     } else {
                         // Handle errors if any

@@ -14,11 +14,11 @@ if ($dropdown1 == 'category') {
     $headers = array("CategoryID", "ProductID", "ProductName", "Price");
 } else {
     // If dropdown1 is not 'category', handle it accordingly (for example, retrieving customer-related data)
-    $query = "SELECT c.CustomerID, o.OrderID, o.TotalAmount, o.OrderDate 
+    $query = "SELECT c.CustomerID, c.FirstName, c.LastName, o.OrderID, o.TotalAmount, o.OrderDate 
           FROM `orders` o
           INNER JOIN customer c ON o.CustomerID = c.CustomerID 
           WHERE o.CustomerID = ?";
-    $headers = array("CustomerID", "OrderID", "TotalAmount", "OrderDate");
+    $headers = array("CustomerID", "FirstName", "LastName", "OrderID", "TotalAmount", "OrderDate");
 }
 
 $stmt = $conn->prepare($query);

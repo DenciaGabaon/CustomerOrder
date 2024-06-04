@@ -130,6 +130,13 @@ include 'AddFormretrieve.php';
                 </div>
                 
             </div>
+            
+            <div id="centered-notification" class="centered-notification">
+                <div class="notification-content">
+                    <p id="notification-message"></p>
+                    <button onclick="closeNotification()">Close</button>
+                </div>
+            </div>
         </div>
     <footer>
         <p>&copy; 2024 Your Website. All rights reserved.</p>
@@ -144,51 +151,6 @@ include 'AddFormretrieve.php';
         }
         setCurrentDate("input1oo");
 
-
-
-        
-
-        // var total = 0; // Variable to keep track of the total
-        // var productList = []; // Array to store product details
-
-        // function displayFormData() {
-        //     var customerID = document.getElementById('customerid').value;
-        //     var Dates = document.getElementById('input1oo').value;
-
-        //     var content_header = "CustomerID: " + customerID + "<br>";
-        //     content_header += "Date: " + Dates + "<br>";
-        //     document.getElementById('receipt_header').innerHTML = content_header;
-
-        //     var productID = document.getElementById('input3oo').value;
-        //     var productDetails = getProductById(productID);
-
-        //     var price = parseFloat(productDetails.price);
-        //     total += price;
-
-        //     productList.push({
-        //         id: productID,
-        //         name: productDetails.name,
-        //         price: price
-        //     });
-
-        //     console.log(productList);
-        //     var content_body = '<div class="product-details">';
-        //     content_body += '<span class="product-id">' + productID + '</span>';
-        //     content_body += '<span class="product-name">' + productDetails.name + '</span>';
-        //     content_body += '<span class="product-price">' + price.toFixed(2) + '</span>';
-        //     content_body += '</div>';
-        //     document.getElementById('receipt_body').innerHTML += content_body; // Append the new product to the receipt body
-
-        //     var content_footer = "Total: " + total.toFixed(2);
-        //     document.getElementById('receipt_footer').innerHTML = content_footer;
-
-        //     // Update the input4oo with the total
-        //     document.getElementById('input4oo').value = total.toFixed(2);
-
-        //     // Reset the product dropdown to its default option and clear the product ID input
-        //     document.getElementById('input2oo').value = "";
-        //     document.getElementById('input3oo').value = "";
-        // }
 
         document.getElementById('input2oo').addEventListener('change', function () {
             var selectedProductId = this.value;
@@ -255,6 +217,50 @@ include 'AddFormretrieve.php';
         // });
 
         
+        // $(document).ready(function () {
+        //     $("#mainFormoo").submit(function (event) {
+        //         event.preventDefault(); // Prevent the default form submission
+
+        //         var formData = $(this).serialize(); // Serialize the form data
+
+        //         $.ajax({
+        //             type: "POST",
+        //             url: "AddFormretrieve.php",
+        //             data: formData,
+        //             dataType: "json",
+        //             success: function (response) {
+        //                 if (response.success) {
+        //                     alert("Order submitted successfully.")
+        //                     console.log("Form submitted successfully.");
+        //                     console.log("Order ID:", response.orderID);
+        //                 } else {
+        //                     alert("Order submission failed.")
+        //                     console.error("Form submission failed.");
+        //                     console.error("Error message:", response.error);
+        //                 }
+        //             },
+        //             error: function (xhr, status, error) {
+        //                 console.error("AJAX request failed.");
+        //                 console.error("Status:", status);
+        //                 console.error("Error:", error);
+        //             }
+        //         });
+        //     });
+        // });
+
+
+        function showNotification(message) {
+            var notification = document.getElementById('centered-notification');
+            var messageElement = document.getElementById('notification-message');
+            messageElement.textContent = message;
+            notification.style.display = 'block';
+        }
+
+        function closeNotification() {
+            var notification = document.getElementById('centered-notification');
+            notification.style.display = 'none';
+        }
+
         $(document).ready(function () {
             $("#mainFormoo").submit(function (event) {
                 event.preventDefault(); // Prevent the default form submission
@@ -268,14 +274,17 @@ include 'AddFormretrieve.php';
                     dataType: "json",
                     success: function (response) {
                         if (response.success) {
+                            showNotification("Order submitted successfully.");
                             console.log("Form submitted successfully.");
                             console.log("Order ID:", response.orderID);
                         } else {
+                            showNotification("Order submission failed.");
                             console.error("Form submission failed.");
                             console.error("Error message:", response.error);
                         }
                     },
                     error: function (xhr, status, error) {
+                        showNotification("AJAX request failed. Status: " + status + ", Error: " + error);
                         console.error("AJAX request failed.");
                         console.error("Status:", status);
                         console.error("Error:", error);
@@ -283,6 +292,7 @@ include 'AddFormretrieve.php';
                 });
             });
         });
+
 
 
 
