@@ -182,7 +182,7 @@ body{
 
 
 
-#sb {
+#sb, #sub {
     background-color: #6E47DE;
     cursor: pointer;
     width: 100%;
@@ -190,14 +190,14 @@ body{
 
 
 
-.aa{
+.aa, .xx{
     background-color: transparent;
     display: flex;
     flex-direction: row;
     width: 100%;
 }
 
-.bb{
+.bb, .yy{
     background-color: transparent;
     display: flex;
     flex-direction: column;
@@ -218,7 +218,7 @@ body{
 }
 
 
-.add_product{
+.add_product, .add_productdd{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -254,7 +254,20 @@ body{
     margin-top: 0%;
 }
 
-#input5oo{
+#input3dd{
+    font-size: 16px;
+    border-radius: 50px;
+    width: 95%; /* Set the width as needed */
+    height: 52px;
+    background-color: #20202F;
+    color: white;
+    font-family: poppins, sans-serif;
+    font-weight: bold;
+    padding-left: 20px; 
+    margin-top: 0%;
+}
+
+#input5oo, #input5dd{
     font-size: 16px;
     border-radius: 50px;
     width: 150px; /* Set the width as needed */
@@ -267,7 +280,7 @@ body{
 
 }
 
-#input2oo{
+#input2oo, #input2dd{
     padding: 8px;
     font-size: 16px;
     border-radius: 50px;
@@ -296,6 +309,21 @@ body{
     margin-right: 10px;
 
 }
+
+#input4dd{
+    font-size: 16px;
+    border-radius: 50px;
+    width: 95%; /* Set the width as needed */
+    height: 52px;
+    background-color: #20202F;
+    color: white;
+    font-family: poppins, sans-serif;
+    font-weight: bold;
+    padding-left: 20px; 
+    margin-top: 10px;
+}
+
+
 
 
 .receipt_base{
@@ -452,41 +480,14 @@ body{
 }
 
 
-#idcc, #customerID, #idoo{
-    padding: 8px;
-    font-size: 16px;
-    border-radius: 50px;
-    width: 80px; /* Set the width as needed */
-    height: 55px;
-    background-color: #6E47DE;
-    color: white;
-    font-family: poppins, sans-serif;
-    font-weight: bold;
-    margin-top: 10px;   
-    text-align: center; 
-}
 
-#input1ccd, #input1ood{
-    font-size: 16px;
-    border-radius: 50px;
-    width: 212px; /* Set the width as needed */
-    height: 52px;
-    background-color: #20202F;
-    color: white;
-    font-family: poppins, sans-serif;
-    font-weight: bold;
-    margin-top: 10px;   
-    text-align: center; 
-}
-#delform, #delformoo {
-    display: none;
-}
 
-.del, .deloo{
-    flex-direction: row;
-}
 
-#input1oo{
+
+
+
+
+#input1oo, #input1dd{
     font-size: 16px;
     border-radius: 50px;
     width: 100%; /* Set the width as needed */
@@ -500,7 +501,7 @@ body{
 
 }
 
-#customerid{
+#customerid, #orderid{
     padding: 8px;
     font-size: 16px;
     border-radius: 50px;
@@ -559,7 +560,9 @@ body{
 
 /* Adjust positioning of other divs if necessary */
 
-
+#delform {
+    display: none;
+}
 
 
 footer {

@@ -112,6 +112,39 @@ include 'AddFormretrieve.php';
                     </form>
 
 
+                    <form id="delform"  method="post">
+                        <div class="xx">
+                            <div class="yy">
+                                <input type="hidden" id="dropdownValueod" name="dropdownValueod">
+                                <div class="row_input">
+                                    <select id="orderid" name="orderid" onchange="loadCustomerDetails(this.value)" required>
+                                        <option value="" selected>OrderID</option>
+                                        <?php
+                                            $sql = "SELECT DISTINCT OrderID FROM orders ORDER BY OrderID";
+                                            $result = $conn->query($sql);
+
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<option value='" . $row['OrderID'] . "'>" . $row['OrderID'] . "</option>";
+                                                }
+                                            }
+                                            
+                                        ?>
+                                    </select>
+                                    <input type="text" id="input1dd" name="input1dd" placeholder="Date" disabled>
+                                </div>
+                                <div class="add_productdd">
+                                        <input type="text" id="input3dd" name="input3dd" placeholder="CustomerID" disabled>
+                                        <input type="text" id="input4dd" name="input4dd" placeholder="Total" disabled>
+                                </div>
+                                <input type="hidden" id="product_data" name="product_data">
+                                <input type="hidden" id="total_amount" name="total_amount">
+                                <button type="submit" id="sub">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+
+
                 </div>
                 <div class = "receipt_base">
                     <div class = "receipt">
@@ -184,6 +217,29 @@ include 'AddFormretrieve.php';
             };
 
             console.log(formData);
+
+            // AJAX call to retrieve the OrderID
+            $.ajax({
+                url: 'GetId.php', // Replace with the path to your PHP script
+                type: 'POST',
+                dataType: 'json', // Expect JSON response
+                success: function(response) {
+                    if (response.lastOrderID !== undefined) {
+                        let orderID = parseInt(response.lastOrderID) + 1;
+                        var content_header = "OrderID: " + orderID + "<br>";
+                        content_header += "CustomerID: " + customerID + "<br>"; // Add OrderID to the receipt header
+                        content_header += "Date: " + Dates + "<br>";
+                        document.getElementById('receipt_header').innerHTML = content_header;
+                    } else {
+                        console.error(response.error);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error: " + error);
+                }
+            });
+
+
 
             var content_header = "CustomerID: " + customerID + "<br>";
             content_header += "Date: " + Dates + "<br>";
@@ -259,6 +315,7 @@ include 'AddFormretrieve.php';
         function closeNotification() {
             var notification = document.getElementById('centered-notification');
             notification.style.display = 'none';
+            location.reload();
         }
 
         $(document).ready(function () {
@@ -284,13 +341,117 @@ include 'AddFormretrieve.php';
                         }
                     },
                     error: function (xhr, status, error) {
-                        showNotification("AJAX request failed. Status: " + status + ", Error: " + error);
+                        showNotification("Select Add or Delete Order");
                         console.error("AJAX request failed.");
                         console.error("Status:", status);
                         console.error("Error:", error);
                     }
                 });
             });
+        });
+
+
+        var dropdown = document.getElementById("dropdownoo");
+
+        // Get the forms
+        var addForm = document.getElementById("mainFormoo");
+        var deleteForm = document.getElementById("delform");
+
+        // Add event listener to the dropdown
+        dropdown.addEventListener("change", function() {
+            // Check the selected value
+            if (dropdown.value === "add") {
+                // Show add form and hide delete form
+                addForm.style.display = "flex";
+                deleteForm.style.display = "none";
+            } else if (dropdown.value === "delete") {
+                // Show delete form and hide add form
+                addForm.style.display = "none";
+                deleteForm.style.display = "flex";
+            }
+        });
+
+
+
+        document.getElementById("dropdownoo").addEventListener("change", function() {
+                console.log("Selected value of dropdownoo:", this.value);
+                // Set the value of the hidden input field to the selected value of the dropdown
+                document.getElementById("dropdownValueo").value = this.value;
+                document.getElementById("dropdownValueod").value = this.value;
+                console.log("Value of dropdownValueo:", document.getElementById("dropdownValueo").value);
+            });
+
+
+            function loadCustomerDetails(orderid) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "inputretrievecc.php?orderid=" + orderid, true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            var orders = JSON.parse(xhr.responseText);
+                            console.log(orders);
+                            if (orders.length > 0) {
+                                var order = orders[0]; // Assuming only one order ID is passed
+                                document.getElementById("input1dd").value = order.OrderDate;
+                                document.getElementById("input3dd").value = order.CustomerID;  //"Customer ID:\t\t\t\t\t" +
+                                document.getElementById("input4dd").value = order.TotalAmount;  //"Total:\t\t\t\t\t\t\t" + 
+
+                                var receipt_header = "Order ID: " + order.OrderID + "<br>";
+                                receipt_header += "Customer ID: " + order.CustomerID + "<br>";
+                                receipt_header += "Order Date: " + order.OrderDate + "<br>";
+                                document.getElementById('receipt_header').innerHTML = receipt_header;
+                                
+                                var receipt_body = document.getElementById("receipt_body");
+
+                                receipt_body.innerHTML = ""; // Clear previous products
+                                order.Products.forEach(function(product) {
+                                    var productDiv = document.createElement("div");
+                                    productDiv.innerHTML = `
+                                        <div class="product-details">
+                                            <span class="product-id"> ${product.ProductID}</span>
+                                            <span class="product-name"> ${product.ProductName}</span>
+                                            <span class="product-price"> ${product.Price}</span>
+                                        </div>
+                                    `;
+                                    receipt_body.appendChild(productDiv);
+                                });
+
+                                var receipt_footer = "Total: " + order.TotalAmount;
+                                document.getElementById('receipt_footer').innerHTML = receipt_footer;
+                            } else {
+                                console.error("No orders found for this order ID.");
+                            }
+                        } else {
+                            console.error("Error fetching order data: " + xhr.status);
+                        }
+                    }
+                };
+                xhr.send();
+            }
+
+
+            document.getElementById("delform").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Get form data
+            var formData = new FormData(this);
+            console.log("Form data:", formData);
+
+            // Send form data to the server using AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "addeloo.php", true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Handle the response here
+                        showNotification('Record deleted from order table');
+                    } else {
+                        // Handle errors if any
+                        showNotification("Select Add or Delete Order");
+                    }
+                }
+            };
+            xhr.send(formData); // Send form data
         });
 
 
